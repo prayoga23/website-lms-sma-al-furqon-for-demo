@@ -8,7 +8,6 @@ import {
   Lock,
   Mail,
   ArrowRight,
-  ShieldCheck,
   UserCheck,
   AlertCircle,
   Eye,
@@ -230,11 +229,10 @@ export default function LoginPage() {
           <button
             type="button"
             onClick={() => switchTab('login')}
-            className={`flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs font-bold transition-all ${
-              activeTab === 'login'
+            className={`flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs font-bold transition-all ${activeTab === 'login'
                 ? 'bg-emerald-700 text-white shadow-sm'
                 : 'text-slate-600 hover:text-emerald-800 hover:bg-white/50'
-            }`}
+              }`}
           >
             <LogIn className="w-4 h-4" />
             Masuk Akun
@@ -243,11 +241,10 @@ export default function LoginPage() {
           <button
             type="button"
             onClick={() => switchTab('register')}
-            className={`flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs font-bold transition-all ${
-              activeTab === 'register'
+            className={`flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs font-bold transition-all ${activeTab === 'register'
                 ? 'bg-emerald-700 text-white shadow-sm'
                 : 'text-slate-600 hover:text-emerald-800 hover:bg-white/50'
-            }`}
+              }`}
           >
             <UserPlus className="w-4 h-4" />
             Daftar Orang Tua
@@ -351,7 +348,7 @@ export default function LoginPage() {
                     className="p-2 bg-white hover:bg-emerald-50/80 border border-slate-200 hover:border-emerald-300 rounded-xl flex items-center gap-2 transition-all text-left group shadow-xs active:scale-[0.98] disabled:opacity-50"
                   >
                     <div className="w-7 h-7 rounded-lg bg-rose-100 text-rose-700 flex items-center justify-center font-bold shrink-0 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
-                      <ShieldCheck className="w-3.5 h-3.5" />
+
                     </div>
                     <div className="min-w-0">
                       <p className="text-xs font-bold text-slate-900 group-hover:text-emerald-950 truncate">Admin</p>
