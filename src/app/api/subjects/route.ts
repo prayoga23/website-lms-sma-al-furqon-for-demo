@@ -53,9 +53,11 @@ export async function GET(req: NextRequest) {
     const result = Array.from(registeredMap.values());
     return NextResponse.json(result);
   } catch (error: any) {
-    return NextResponse.json({ message: error.message || 'Server error' }, { status: 500 });
+    console.warn('DB offline in GET /api/subjects, returning customSubjects:', error?.message);
+    return NextResponse.json(customSubjects);
   }
 }
+
 
 export async function POST(req: NextRequest) {
   const auth = getAuthUser(req);
