@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { customSubjects } from '../route';
+import { customSubjects } from '@/lib/subjects-data';
 import { getAuthUser } from '@/lib/auth';
 
 export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
