@@ -23,6 +23,7 @@ import {
   GraduationCap,
   X,
   ChevronDown,
+  Sparkles,
 } from 'lucide-react';
 
 interface StudentOption {
@@ -120,6 +121,27 @@ export default function LoginPage() {
       }
     } catch (err: any) {
       setError(err.response?.data?.message || 'Gagal login. Periksa email & password Anda.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleAutoLogin = async (email: string, password: string) => {
+    setLoginEmail(email);
+    setLoginPassword(password);
+    setError('');
+    setSuccessMsg('');
+    setIsSubmitting(true);
+
+    try {
+      const user = await login(email, password);
+      if (['admin', 'guru', 'staff'].includes(user.role)) {
+        router.push('/admin/dashboard');
+      } else {
+        router.push('/parent/dashboard');
+      }
+    } catch (err: any) {
+      setError(err.response?.data?.message || 'Gagal login otomatis. Periksa koneksi API Anda.');
     } finally {
       setIsSubmitting(false);
     }
@@ -309,6 +331,81 @@ export default function LoginPage() {
             </button>
 
             <div className="pt-4 border-t border-slate-100 space-y-3">
+              {/* DEMO AUTO LOGIN BUTTONS (1-KLIK OTOMATIS) */}
+              <div className="bg-slate-50/80 p-3 rounded-2xl border border-slate-200/90 space-y-2.5">
+                <div className="flex items-center justify-between">
+                  <span className="text-[11px] font-black uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-amber-500 animate-pulse" />
+                    Auto Login Otomatis (Demo)
+                  </span>
+                  <span className="text-[9px] font-extrabold text-emerald-800 bg-emerald-100 px-2 py-0.5 rounded-md border border-emerald-200">
+                    1-Klik Auto
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    type="button"
+                    disabled={isSubmitting}
+                    onClick={() => handleAutoLogin('admin@sekolah.sch.id', 'password123')}
+                    className="p-2 bg-white hover:bg-emerald-50/80 border border-slate-200 hover:border-emerald-300 rounded-xl flex items-center gap-2 transition-all text-left group shadow-xs active:scale-[0.98] disabled:opacity-50"
+                  >
+                    <div className="w-7 h-7 rounded-lg bg-rose-100 text-rose-700 flex items-center justify-center font-bold shrink-0 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
+                      <ShieldCheck className="w-3.5 h-3.5" />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-xs font-bold text-slate-900 group-hover:text-emerald-950 truncate">Admin</p>
+                      <p className="text-[9px] text-slate-500 truncate">admin@sekolah</p>
+                    </div>
+                  </button>
+
+                  <button
+                    type="button"
+                    disabled={isSubmitting}
+                    onClick={() => handleAutoLogin('guru@sekolah.sch.id', 'password123')}
+                    className="p-2 bg-white hover:bg-emerald-50/80 border border-slate-200 hover:border-emerald-300 rounded-xl flex items-center gap-2 transition-all text-left group shadow-xs active:scale-[0.98] disabled:opacity-50"
+                  >
+                    <div className="w-7 h-7 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center font-bold shrink-0 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
+                      <GraduationCap className="w-3.5 h-3.5" />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-xs font-bold text-slate-900 group-hover:text-emerald-950 truncate">Guru</p>
+                      <p className="text-[9px] text-slate-500 truncate">guru@sekolah</p>
+                    </div>
+                  </button>
+
+                  <button
+                    type="button"
+                    disabled={isSubmitting}
+                    onClick={() => handleAutoLogin('staff@sekolah.sch.id', 'password123')}
+                    className="p-2 bg-white hover:bg-emerald-50/80 border border-slate-200 hover:border-emerald-300 rounded-xl flex items-center gap-2 transition-all text-left group shadow-xs active:scale-[0.98] disabled:opacity-50"
+                  >
+                    <div className="w-7 h-7 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center font-bold shrink-0 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
+                      <UserCheck className="w-3.5 h-3.5" />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-xs font-bold text-slate-900 group-hover:text-emerald-950 truncate">Staff / TU</p>
+                      <p className="text-[9px] text-slate-500 truncate">staff@sekolah</p>
+                    </div>
+                  </button>
+
+                  <button
+                    type="button"
+                    disabled={isSubmitting}
+                    onClick={() => handleAutoLogin('orangtua@sekolah.sch.id', 'password123')}
+                    className="p-2 bg-white hover:bg-emerald-50/80 border border-slate-200 hover:border-emerald-300 rounded-xl flex items-center gap-2 transition-all text-left group shadow-xs active:scale-[0.98] disabled:opacity-50"
+                  >
+                    <div className="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold shrink-0 group-hover:bg-emerald-600 group-hover:text-white transition-colors">
+                      <User className="w-3.5 h-3.5" />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-xs font-bold text-slate-900 group-hover:text-emerald-950 truncate">Orang Tua</p>
+                      <p className="text-[9px] text-slate-500 truncate">orangtua@sekolah</p>
+                    </div>
+                  </button>
+                </div>
+              </div>
+
               <p className="text-xs text-slate-500 text-center">
                 Belum memiliki akun orang tua?{' '}
                 <button
@@ -319,7 +416,6 @@ export default function LoginPage() {
                   Daftar Akun Baru
                 </button>
               </p>
-
             </div>
           </form>
         )}
